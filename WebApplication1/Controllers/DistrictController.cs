@@ -32,17 +32,18 @@ namespace WebApplication1.Controllers
         }
 
         // GET api/district
-        // [CacheOutput(ClientTimeSpan = 240, ServerTimeSpan = 240)]
-        [CacheOutputUntilToday(16, 48)]
-        //[OutputCache(Duration = 3600, Location = OutputCacheLocation.Server)]
+        // [CacheOutputUntilToday(16, 48)]
+        [CacheOutput(ClientTimeSpan = 240, ServerTimeSpan = 240)]
         public IEnumerable<string> Get()
         {
             // await Task.Delay(100);
             return districts;
         }
 
+
         // GET api/values/5
-        [CacheOutputUntilToday(16, 48)]
+        // [CacheOutputUntilToday(16, 48)]
+        [CacheOutput(ClientTimeSpan = 240, ServerTimeSpan = 240)]
         public string Get(string id)
         {
             return districts.Where(w=> w.Contains(id)).FirstOrDefault();
@@ -50,10 +51,20 @@ namespace WebApplication1.Controllers
 
         [HttpGet]
         [Route("{name}/byname")]
-        [CacheOutputUntilToday(16, 48)]
+        // [CacheOutputUntilToday(16, 48)]
+        [CacheOutput(ClientTimeSpan = 240, ServerTimeSpan = 240)]
         public string GetByName(string name)
         {
             return districts.Where(w => w.Contains(name)).FirstOrDefault();
+        }
+
+        [HttpGet]
+        [Route("{name}/byname")]
+        // [CacheOutputUntilToday(16, 48)]
+        [CacheOutput(ClientTimeSpan = 240, ServerTimeSpan = 240)]
+        public string GetByName()
+        {
+            return "";
         }
 
         // POST api/district
