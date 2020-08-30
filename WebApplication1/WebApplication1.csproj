@@ -165,7 +165,7 @@
     <Compile Include="Controllers\District.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\DistrictController.cs" />
-    <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\RemoveCacheController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

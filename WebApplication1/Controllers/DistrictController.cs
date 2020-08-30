@@ -10,6 +10,7 @@ using WebApi.OutputCache.V2.TimeAttributes;
 
 namespace WebApplication1.Controllers
 {
+    [RoutePrefix("api/district")]
     public class DistrictController : ApiController
     {
         List<string> districts = new List<string>();
@@ -47,19 +48,27 @@ namespace WebApplication1.Controllers
             return districts.Where(w=> w.Contains(id)).FirstOrDefault();
         }
 
+        [HttpGet]
+        [Route("{name}/byname")]
+        [CacheOutputUntilToday(16, 48)]
+        public string GetByName(string name)
+        {
+            return districts.Where(w => w.Contains(name)).FirstOrDefault();
+        }
+
         // POST api/district
-        // [InvalidateCacheOutput("Get")]
         [HttpPost]
+        [InvalidateCacheOutput("Get")]
+        [InvalidateCacheOutput("GetByName")]
         public IHttpActionResult Post([FromBody]string value)
         {
             districts.Add("Faridpur");
 
             // now get cache instance
-            var cache = Configuration.CacheOutputConfiguration().GetCacheOutputProvider(Request);
-            // and invalidate cache for method "Get" of "DistrictController"
-            cache.RemoveStartsWith(Configuration.CacheOutputConfiguration()
-                .MakeBaseCachekey((DistrictController t) => t.Get()));
-
+            //var cache = Configuration.CacheOutputConfiguration().GetCacheOutputProvider(Request);
+            //// and invalidate cache for method "Get" of "DistrictController"
+            //cache.RemoveStartsWith(Configuration.CacheOutputConfiguration()
+            //    .MakeBaseCachekey((DistrictController t) => t.Get()));
 
             return Ok("OK");
 
