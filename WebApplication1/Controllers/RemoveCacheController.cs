@@ -32,7 +32,7 @@ namespace WebApplication1.Controllers
                 .MakeBaseCachekey((DistrictController t) => t.Get()));
 
             cache.RemoveStartsWith(Configuration.CacheOutputConfiguration()
-                .MakeBaseCachekey((DistrictController t) => t.GetByName("")));
+                .MakeBaseCachekey((DistrictController t) => t.GetByName()));
 
             return Ok("Removed");
         }
